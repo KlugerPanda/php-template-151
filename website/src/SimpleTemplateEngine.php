@@ -1,6 +1,6 @@
 <?php
 
-namespace mineichen;
+namespace KlugerPanda;
 
 /**
  * Simple Template-Engine which provides arguments into a template,

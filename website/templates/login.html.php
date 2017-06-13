@@ -8,7 +8,7 @@
 	<form method="POST">
 		<label>
 			Email:
-			<input type="email" name="email" value="<?= (isset($email)) ? $email: "" ?>"/>
+			<input type="text" name="email" value="<?= (isset($email)) ? $email: "" ?>"/>
 		</label>
 		<label>
 			Passwort:

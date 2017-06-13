@@ -1,9 +1,9 @@
 {
-    "name": "mineichen/Datenbankprojekt",
+    "name": "KlugerPanda/Datenbankprojekt",
     "type": "project",
     "autoload": {
         "psr-4": {
-            "mineichen\\": "src/"
+            "KlugerPanda\\": "src/"
         }
     },
     "require": {

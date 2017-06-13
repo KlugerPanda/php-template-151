@@ -1,6 +1,6 @@
 <?php 
 
-namespace mineichen;
+namespace KlugerPanda;
 
 class Factory 
 {
@@ -35,14 +35,6 @@ class Factory
 		return new \Twig_Environment($loader);
 	}
 	
-	public function getLoginController()
-	{
-		return new Controller\LoginController(
-			$this->getTemplateEngine(), 
-			$this->getLoginService()
-		);
-	}
-	
 	public function getPdo()
 	{
 		return new \PDO(
@@ -52,9 +44,33 @@ class Factory
 			[\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION]
 		);
 	}
-	
+
+	// Login
+	public function getLoginController()
+	{
+		return new Controller\LoginController(
+				$this->getTemplateEngine(),
+				$this->getLoginService()
+				);
+	}
 	public function getLoginService()
 	{
 		return new Service\Login\LoginPdoService($this->getPdo());
 	}
+	
+	// Registrieren
+	public function getRegistrierenController()
+	{
+		return new Controller\RegistrierenController(
+				$this->getTemplateEngine(),
+				$this->getRegistrierenService()
+				);
+	}
+	public function getRegistrierenService()
+	{
+		return new Service\Registrieren\RegistrierenPdoService($this->getPdo());
+	}
+	
+	
+
 }

@@ -1,26 +1,35 @@
 <?php
-
+session_regenerate_id();
 require_once("../vendor/autoload.php");
-$factory = mineichen\Factory::createFromIniFile(__DIR__ . "/../config.ini");
+$factory = KlugerPanda\Factory::createFromIniFile(__DIR__ . "/../config.ini");
 
 switch($_SERVER["REQUEST_URI"]) {
 	case "/":
 		$factory->getIndexController()->homepage();
 		break;
 	case "/login":
-		$cnt = $factory->getLoginController();
-		if($_SERVER["REQUEST_METHOD"] === "GET") {
-			$cnt->showLogin();
-		} else {
-			$cnt->login($_POST);
+		$factory = $factory->getLoginController();
+		if($_SERVER["REQUEST_METHOD"] === "GET") 
+		{
+			$factory->showLogin();
+		} 
+		else 
+		{
+			$factory->login($_POST);
+		}
+		break;
+	case "/registrieren":
+		$factory = $factory->getRegistrierenController();
+		if($_SERVER["REQUEST_METHOD"] === "GET") 
+		{
+			$factory->showRegistrieren();
+		} 
+		else 
+		{
+			$factory->register($_POST);
 		}
 		break;
 	default:
-		$matches = [];
-		if(preg_match("|^/hello/(.+)$|", $_SERVER["REQUEST_URI"], $matches)) {
-			$factory->getIndexController()->greet($matches[1]);
-			break;
-		}
 		echo "Not Found";
 }
 

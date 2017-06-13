@@ -1,6 +1,6 @@
 <?php
 
-namespace mineichen\Service\Login;
+namespace KlugerPanda\Service\Login;
 
 interface LoginService
 {

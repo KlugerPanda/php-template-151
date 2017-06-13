@@ -1,18 +1,18 @@
 <?php
 
-namespace mineichen\Controller;
+namespace KlugerPanda\Controller;
 
-use mineichen\SimpleTemplateEngine;
+use KlugerPanda\SimpleTemplateEngine;
 
 class IndexController 
 {
   /**
-   * @var mineichen\SimpleTemplateEngine Template engines to render output
+   * @var KlugerPanda\SimpleTemplateEngine Template engines to render output
    */
   private $template;
   
   /**
-   * @param mineichen\SimpleTemplateEngine
+   * @param KlugerPanda\SimpleTemplateEngine
    */
   public function __construct(\Twig_Environment $template)
   {
@@ -20,10 +20,7 @@ class IndexController
   }
 
   public function homepage() {
-    echo "INDEX";
+    echo "INDEX TEst";
   }
 
-  public function greet($name) {
-  	echo $this->template->render("hello.html.twig", ["name" => $name]);
-  }
 }

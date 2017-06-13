@@ -1,24 +1,24 @@
 <?php
 
-namespace mineichen\Controller;
+namespace KlugerPanda\Controller;
 
-use mineichen\SimpleTemplateEngine;
-use mineichen\Service\Login\LoginService;
+use KlugerPanda\SimpleTemplateEngine;
+use KlugerPanda\Service\Login\LoginService;
 
 class LoginController 
 {
   /**
-   * @var mineichen\SimpleTemplateEngine Template engines to render output
+   * @var KlugerPanda\SimpleTemplateEngine Template engines to render output
    */
   private $template;
   
   /**
-   * @var mineichen\Service\Login\LoginService
+   * @var KlugerPanda\Service\Login\LoginService
    */
   private $loginService;
   
   /**
-   * @param mineichen\SimpleTemplateEngine
+   * @param KlugerPanda\SimpleTemplateEngine
    */
   public function __construct(SimpleTemplateEngine $template, LoginService $loginService)
   {
