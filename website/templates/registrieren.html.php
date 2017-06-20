@@ -8,7 +8,7 @@
 	<form method="POST">
 		<label>
 			Username:
-			<input type="username" name="username" value="<?= (isset($username)) ? $username: "" ?>"/>
+			<input type="text" name="username" value="<?= (isset($username)) ? $username: "" ?>"/>
 		</label>
 		<label>
 			Email:

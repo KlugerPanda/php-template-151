@@ -16,22 +16,30 @@ class LoginPdoService implements LoginService
 
     public function authenticate($username, $password) 
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM user WHERE username=? OR email=? AND status=1");
+        $stmt = $this->pdo->prepare("SELECT * FROM user WHERE (username=? OR email=?) AND status=1");
         $stmt->bindValue(1, $username);
         $stmt->bindValue(2, $username);
         $stmt->execute();
+        
+        $tester = 0;
 		foreach ($stmt as $row)
 		{
-			$row[]
+			if(password_verify($password, $row["passwort"]))
+			{
+				$tester = 1;
+			}
 		}
-        if($stmt->rowCount() === 1) 
-        {
-            $_SESSION["username"] = $stmt->username;
-            $_SESSION["email"] = $stmt->email;
-            return true;
-        } else {
-            return false;
-        }
+		if ($tester == 1)
+		{
+			$_SESSION["username"] = $stmt->username;
+			$_SESSION["email"] = $stmt->email;
+			return true;
+		}
+		else 
+		{
+			echo "Falsche Benutzerdaten, falls Sie sich neu registriert haben, müssen Sie zuerst Ihre E-Mail Adresse bestätigen.";
+			return false;
+		}
         
 
     }

@@ -38,27 +38,80 @@ class RegistrierenController
   		$this->showRegistrieren();
   		return;
   	}
-  	if ($this->registrierenService->register($data["username"], $data["email"], password_hash($data["password"], PASSWORD_DEFAULT), 
-  			$data["passwordRepeat"]))
+  	$link = $this->getLink();
+  	if (!$this->usernameCheck($data['username']))
   	{
-		echo "Sie haben ein Bestätigungs-E-Mail erhalten.";
+  		$this->showRegistrieren();
+  		echo "Falscher Username";
+  		return;
+  	}
+  	if (!$this->passwortCheck($data['password'], $data['passwordRepeat']))
+  	{
+  		$this->showRegistrieren();
+  		echo "Passwörter stimmen nicht überein!";
+  		return;
+  	}
+  	if ($this->registrierenService->register($data["username"], $data["email"], password_hash($data["password"], PASSWORD_DEFAULT), 
+  			$link))
+  	{
+  		header('Refresh: 3; URL=https://localhost/login');
+  		echo "Sie haben ein Bestätigungs-E-Mail erhalten.";
   	}
   	
   }
   
-  public function usernameCheck()
+  public function usernameCheck($username)
   {
-  	
+  	// prüfen ob Username noch frei ist.
+  	if ($this->registrierenService->getAllUsernames($username))
+  	{
+  		return true;
+  	}
+  	else 
+  	{
+  		return false;
+  	}
   }
   
-  public function passwortCheck()
+  public function passwortCheck($password, $passwordRepeat)
   {
-  	
+  	if ($password == $passwordRepeat)
+  	{
+  		return true;
+  	}
+  	else 
+  	{
+  		return false;
+  	}
   }
   
   public function getLink()
   {
-  	
+  	$link = "";
+  	$zeichen = array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z', 
+  			'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z', '!', '$', '?',
+  			'%', '1', '2', '3', '4', '5', '6', '7,' ,'8', '9');
+  	do 
+  	{
+  		for ($i = 0; $i < 15; $i++)
+  		{
+  			$randomNumber =  rand(0, count($zeichen));
+  			$link = $link . $zeichen[$randomNumber];
+  		}
+  	} while (!$this->linkCheck($link));
+  	return $link;
+  }
+  public function linkCheck($link)
+  {
+  	// prüfen ob link noch ungebraucht ist.
+  	if ($this->registrierenService->getAllLinks($link))
+  	{
+  		return true;
+  	}
+  	else
+  	{
+  		return false;
+  	}
   }
 
 }

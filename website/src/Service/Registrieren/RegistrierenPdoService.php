@@ -26,22 +26,75 @@ class RegistrierenPdoService implements RegistrierenService
         $stmt->execute();
 		
         
-        $message =  \Swift_Message::newInstance()
-        ->setSubject('Account Bestätigung')
-        ->setFrom(array('patr.hens6@gmail.com' => 'Patrick Henseler'))
-        ->setTo(array($email => $username))
-        ->setBody('Hallo ' . $username . ',</br> Bitte bestätige deine Email <a href="https://'
-        		. $_SERVER['SERVER_NAME'] . "/Activate". $link);
-        		$this->getMailer()->send($message);
+        /*require_once '../vendor/autoload.php';
+        
+        // Create the Transport
+        $transport = (new Swift_SmtpTransport('smtp.gmail.com', 465))
+        ->setUsername("gibz.module.151@gmail.com")
+        ->setPassword("Pe$6A+aprunu")
+        ;
+        
+        // Create the Mailer using your created Transport
+        $mailer = new Swift_Mailer($transport);
+        
+        // Create a message
+        $message = (new Swift_Message('Email bestätigen'))
+        ->setFrom(['patr.hens6@gmail.com' => 'Patrick Henseler'])
+        ->setTo([$email => $username])
+        ->setBody('Guten Tag ' .$username . '</br></br>Bitte bestätige deine E-Mail Adresse indem du auf folgegenden Link gehts.' . 
+        		'<a href="https://'. $_SERVER['SERVER_NAME'] . "/Activate". $link)
+        ;
+        
+        // Send the message
+        $result = $mailer->send($message);
+        */
         return true;
     }
-    public function getMailer()
+    public function getAllUsernames($username)
     {
-    	return \Swift_Mailer::newInstance(
-    			\Swift_SmtpTransport::newInstance("smtp.gmail.com", 465, "ssl")
-    			->setUsername("gibz.module.151@gmail.com")
-    			->setPassword("Pe$6A+aprunu")
-    			);
+    	// $username vorgegebener Username
+    	$stmt = $this->pdo->prepare("SELECT username FROM user");
+    	$stmt->execute();
+    	
+    	$tester = 0;
+    	foreach ($stmt as $row)
+    	{
+    		if(strtolower($username) === strtolower($row['username']))
+    		{
+    			$tester = 1;
+    		}
+    	}
+    	if ($tester == 1)
+    	{
+    		return false;
+    	}
+    	else 
+    	{
+    		return true;
+    	}
     }
     
+    public function getAllLinks($username)
+    {
+    	// $username vorgegebener Username
+    	$stmt = $this->pdo->prepare("SELECT link FROM user");
+    	$stmt->execute();
+    	 
+    	$tester = 0;
+    	foreach ($stmt as $row)
+    	{
+    		if(strtolower($link) == strtolower($row['link']))
+    		{
+    			$tester = 1;
+    		}
+    	}
+    	if ($tester == 1)
+    	{
+    		return false;
+    	}
+    	else
+    	{
+    		return true;
+    	}
+    }
 }

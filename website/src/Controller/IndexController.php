@@ -19,8 +19,19 @@ class IndexController
      $this->template = $template;
   }
 
-  public function homepage() {
-    echo "INDEX TEst";
+  public function homepage() 
+  {
+  	// Hier kommt die fast komplette HTML Seite rein (Aufteilen in diverse login.html.php Files)
+    if (isset($_SESSION["username"]))
+    {
+    	echo "Hallo" . $_SESSION['username'];
+    }
+    else 
+    {
+    	echo "Melde dich an um die gesamte Funktionalität der Seite zu verwenden.";
+    	echo "</br>";
+    	echo "<a href='https://localhost/login'>Hier geht's zum Login</a>";
+    }
   }
 
 }

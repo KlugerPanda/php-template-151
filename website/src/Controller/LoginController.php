@@ -33,14 +33,19 @@ class LoginController
   
   public function login(array $data)
   {
-  	if(!array_key_exists("email", $data) OR !array_key_exists("password", $data)) {
+  	if(!array_key_exists("email", $data) OR !array_key_exists("password", $data)) 
+  	{
   		$this->showLogin();
   		return;
   	}
   	
-  	if($this->loginService->authenticate($data["email"], $data["password"])) {
-  		header("Location: /");
-  	} else {
+  	if($this->loginService->authenticate($data["email"], $data["password"])) 
+  	{
+  		header('Refresh: 2; URL=https://localhost');
+  		echo "Erfolgreich eingeloggt!";
+  	} 
+  	else 
+  	{
   		echo $this->template->render("login.html.php", [
   			"email" => $data["email"]		
   		]);

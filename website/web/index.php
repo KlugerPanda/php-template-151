@@ -1,8 +1,8 @@
 <?php
-session_regenerate_id();
+//session_regenerate_id();
 require_once("../vendor/autoload.php");
 $factory = KlugerPanda\Factory::createFromIniFile(__DIR__ . "/../config.ini");
-
+session_start();
 switch($_SERVER["REQUEST_URI"]) {
 	case "/":
 		$factory->getIndexController()->homepage();
