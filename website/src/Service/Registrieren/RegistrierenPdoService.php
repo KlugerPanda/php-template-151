@@ -51,6 +51,23 @@ class RegistrierenPdoService implements RegistrierenService
     	}
     }
     
+    public function getAllEmails($email)
+    {
+    	// $username vorgegebener Username
+    	$stmt = $this->pdo->prepare("SELECT email FROM user");
+    	$stmt->execute();
+    	 
+    	$tester = true;
+    	foreach ($stmt as $row)
+    	{
+    		if(strtolower($email) === strtolower($row['email']))
+    		{
+    			$tester = false;
+    		}
+    	}
+		return $tester;
+    }
+    
     public function getAllLinks($username)
     {
     	// $username vorgegebener Username

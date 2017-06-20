@@ -33,5 +33,16 @@ class IndexController
     	echo "<a href='https://localhost/login'>Hier geht's zum Login</a>";
     }
   }
+  public function showLoginButton()
+  {
+  	if (isset($_SESSION["username"]))
+  	{
+  		echo "<a href='/ausloggen'><button>Ausloggen</button></a>";
+  	}
+  	else 
+  	{
+  		echo "<a href='/login'><button>Login</button></a>";
+  	}
+  }
 
 }

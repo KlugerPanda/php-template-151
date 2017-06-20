@@ -42,13 +42,19 @@ class RegistrierenController
   	if (!$this->usernameCheck($data['username']))
   	{
   		$this->showRegistrieren();
-  		echo "Falscher Username";
+  		echo '<div class="alert alert-danger" role="alert">Username bereits vergeben!</div>';
+  		return;
+  	}
+  	if (!$this->emailCheck($data['email']))
+  	{
+  		$this->showRegistrieren();
+  		echo '<div class="alert alert-danger" role="alert">Email wird bereits verwendet.</div>';
   		return;
   	}
   	if (!$this->passwortCheck($data['password'], $data['passwordRepeat']))
   	{
   		$this->showRegistrieren();
-  		echo "Passwörter stimmen nicht überein!";
+  		echo '<div class="alert alert-danger" role="alert">Passwörter stimmen nicht überein!"</div>';
   		return;
   	}
   	if ($this->registrierenService->register($data["username"], $data["email"], password_hash($data["password"], PASSWORD_DEFAULT), 
@@ -62,13 +68,23 @@ class RegistrierenController
   				. $_SERVER['SERVER_NAME'] . "/Activate=" . $link. '">Hier</a>', 'text/html')
   				->setContentType("text/html");
   		
-  		//header('Refresh: 3; URL=https://localhost/login');
-  		echo "Sie haben ein Bestätigungs-E-Mail erhalten.";
+  		echo '<div class="alert alert-success" role="alert">Erfolgreich registriert. Sie haben ein Bestätigungs-E-Mail erhalten.</div>';
   		return $message;
   	}
   	
   }
-  
+  public function emailCheck($email)
+  {
+  	// prüfen ob Email noch frei ist.
+  	if ($this->registrierenService->getAllEmails($email))
+  	{
+  		return true;
+  	}
+  	else
+  	{
+  		return false;
+  	}
+  }
   public function usernameCheck($username)
   {
   	// prüfen ob Username noch frei ist.

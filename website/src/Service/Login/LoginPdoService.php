@@ -20,42 +20,37 @@ class LoginPdoService implements LoginService
         $stmt->bindValue(1, $username);
         $stmt->bindValue(2, $username);
         $stmt->execute();
-        
         $tester = 0;
 		foreach ($stmt as $row)
 		{
+			$tester = 1;
 			if(password_verify($password, $row["passwort"]))
 			{
 				if ($row["status"] == 1)
 				{
-					$tester = 1;
+					$_SESSION["username"] = $row['username'];
+					$_SESSION["email"] = $row['email'];
+					echo '<div class="alert alert-success" role="alert">Erfolgreich eingeloggt!</div>';
+					//header('location: localhost', 0);
+					return true;
 				}
 				else 
 				{
-					echo "Sie müssen zuerst Ihre Email bestätigen, bevor Sie sich einloggen können!";
-					return;
+					echo '<div class="alert alert-info" role="alert">Sie müssen zuerst Ihre Email bestätigen, bevor Sie sich einloggen können!</div>';
+					return false;
 				}
 			}
 			else 
 			{
-				echo "Falsche Benutzerdaten!";
-				return;
+				echo '<div class="alert alert-danger" role="alert">Falsche Benutzerdaten!</div>';
+				return false;
 			}
-			$tester = 2;
 		}
-		if ($tester == 1)
-		{
-			$_SESSION["username"] = $stmt->username;
-			$_SESSION["email"] = $stmt->email;
-			echo "Erfolgreich eingeloggt!";
-			return true;
-		}
-		else if ($tester == 0)
-		{
-			echo "Falsche Benutzerdaten, falls Sie sich neu registriert haben, müssen Sie zuerst Ihre E-Mail Adresse bestätigen.";
-			return false;
-		}
-        
+        if ($tester == 0)
+        {
+        	echo '<div class="alert alert-danger" role="alert">Falsche Benutzerdaten!</div>';
+        	return false;
+        }
 
     }
 }
