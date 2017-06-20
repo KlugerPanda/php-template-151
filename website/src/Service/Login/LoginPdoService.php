@@ -30,8 +30,8 @@ class LoginPdoService implements LoginService
 				{
 					$_SESSION["username"] = $row['username'];
 					$_SESSION["email"] = $row['email'];
-					echo '<div class="alert alert-success" role="alert">Erfolgreich eingeloggt!</div>';
-					//header('location: localhost', 0);
+					//echo '<div class="alert alert-success" role="alert">Erfolgreich eingeloggt!</div>';
+					header('location: localhost', 0);
 					return true;
 				}
 				else 

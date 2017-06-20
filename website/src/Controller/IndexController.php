@@ -21,28 +21,46 @@ class IndexController
 
   public function homepage() 
   {
-  	// Hier kommt die fast komplette HTML Seite rein (Aufteilen in diverse login.html.php Files)
-    if (isset($_SESSION["username"]))
-    {
-    	echo "Hallo" . $_SESSION['username'];
-    }
-    else 
-    {
-    	echo "Melde dich an um die gesamte Funktionalität der Seite zu verwenden.";
-    	echo "</br>";
-    	echo "<a href='https://localhost/login'>Hier geht's zum Login</a>";
-    }
+    	echo '
+    	<!Doctype>
+    	<html>
+    	<head>
+		<link rel="stylesheet" href="stylesheet.css">
+    	<title>Jodel</title>
+    	</head>
+    	<body>
+    	<div class="green" small-1 medium-1 large-1>
+    		BLABLABLA
+    	</div>
+    	<div class="red small-2 medium-2 large-2">
+    	' . $this->showLoginButton() . '
+    	</div>
+    		
+    	<div class="yellow small-1 medium-3 large-3">
+    	Content
+    	</div>
+    		
+    	<div class="blue small-1 medium-3 large-3">
+    	footer
+    	</div>
+    	</body>
+    	</html>
+    	';
+    	
+    
   }
+  
   public function showLoginButton()
   {
   	if (isset($_SESSION["username"]))
   	{
-  		echo "<a href='/ausloggen'><button>Ausloggen</button></a>";
+  		$button =  "<a href='/ausloggen'><button class=''>Ausloggen</button></a>";
   	}
   	else 
   	{
-  		echo "<a href='/login'><button>Login</button></a>";
+  		$button =  "<a href='/login'><button>Login</button></a>";
   	}
+  	return $button;
   }
 
 }

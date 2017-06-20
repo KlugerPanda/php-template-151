@@ -17,7 +17,7 @@
 <?php 
 if (isset($_SESSION["username"]))
 {
-	echo "<h1><center>Sie sind bereits eingeloggt<a href='/'>Zurück zur Seite</a></center></h1>";
+	echo "<h1><center>Sie sind bereits eingeloggt</br></br><a href='/'>Zurück zur Seite</a></center></h1>";
 }
 else 
 {

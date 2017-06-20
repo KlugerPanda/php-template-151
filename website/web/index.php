@@ -6,7 +6,9 @@ if (!isset($_SESSION["username"]))
 {
 	session_start();
 }
-
+?>
+<link rel="stylesheet" href="stylesheets/stylesheet.css">
+<?php 
 switch($_SERVER["REQUEST_URI"]) {
 	case "/":
 		$factory->getIndexController()->homepage();
@@ -21,6 +23,12 @@ switch($_SERVER["REQUEST_URI"]) {
 		{
 			$loginController->login($_POST);
 		}
+		break;
+	case "/ausloggen":
+		//header('location: https://localhost/login', 0);
+		// Löschen aller Session-Variablen.
+		$_SESSION = array();
+		session_destroy();
 		break;
 	case "/registrieren":
 		$registrierenController = $factory->getRegistrierenController();
