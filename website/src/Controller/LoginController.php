@@ -41,8 +41,8 @@ class LoginController
   	
   	if($this->loginService->authenticate($data["email"], $data["password"])) 
   	{
+  		$_SESSION['username'] = $data["email"];
   		header('Refresh: 2; URL=https://localhost');
-  		echo "Erfolgreich eingeloggt!";
   	} 
   	else 
   	{

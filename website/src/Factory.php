@@ -71,6 +71,27 @@ class Factory
 		return new Service\Registrieren\RegistrierenPdoService($this->getPdo());
 	}
 	
+	// E-Mail bestätigen
+	public function getActivateController()
+	{
+		return new Controller\ActivateController(
+				$this->getTemplateEngine(),
+				$this->getActivateService()
+				);
+	}
+	public function getActivateService()
+	{
+		return new Service\Activate\ActivatePdoService($this->getPdo());
+	}
 	
+	// Mailer
+	public function getMailer()
+	{
+		return \Swift_Mailer::newInstance(
+				\Swift_SmtpTransport::newInstance("smtp.gmail.com", 465, "ssl")
+				->setUsername("gibz.module.151@gmail.com")
+				->setPassword("Pe$6A+aprunu")
+				);
+	}
 
 }

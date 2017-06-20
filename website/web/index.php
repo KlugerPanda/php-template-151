@@ -3,33 +3,48 @@
 require_once("../vendor/autoload.php");
 $factory = KlugerPanda\Factory::createFromIniFile(__DIR__ . "/../config.ini");
 session_start();
+$_SESSION = array();
+session_destroy();
 switch($_SERVER["REQUEST_URI"]) {
 	case "/":
 		$factory->getIndexController()->homepage();
 		break;
 	case "/login":
-		$factory = $factory->getLoginController();
+		$loginController = $factory->getLoginController();
 		if($_SERVER["REQUEST_METHOD"] === "GET") 
 		{
-			$factory->showLogin();
+			$loginController->showLogin();
 		} 
 		else 
 		{
-			$factory->login($_POST);
+			$loginController->login($_POST);
 		}
 		break;
 	case "/registrieren":
-		$factory = $factory->getRegistrierenController();
+		$registrierenController = $factory->getRegistrierenController();
 		if($_SERVER["REQUEST_METHOD"] === "GET") 
 		{
-			$factory->showRegistrieren();
+			$registrierenController->showRegistrieren();
 		} 
 		else 
 		{
-			$factory->register($_POST);
+			$message = $registrierenController->register($_POST);
+			//$factory->getMailer()->send($message);
 		}
 		break;
+	case "/activate":
+		break;
 	default:
-		echo "Not Found";
+		$matches = [];
+		if(preg_match("|^/activate=(.+)$|", $_SERVER["REQUEST_URI"], $matches)) 
+		{
+			$activateController = $factory->getActivateController();
+			$activateController->activate($matches[1]);
+			break;
+		}
+		else 
+		{
+			echo "Not Found";
+		}
 }
 

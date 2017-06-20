@@ -2,8 +2,9 @@
 <html>
 <head>
 	<title>My Login Page</title>
+	<link rel="stylesheet" href="stylesheets/stylesheet.css">
 </head>
-<body>
+<body class="blue">
 	<h1>Login</h1>
 	<form method="POST">
 		<label>

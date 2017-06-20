@@ -54,8 +54,17 @@ class RegistrierenController
   	if ($this->registrierenService->register($data["username"], $data["email"], password_hash($data["password"], PASSWORD_DEFAULT), 
   			$link))
   	{
-  		header('Refresh: 3; URL=https://localhost/login');
+  		$message =  \Swift_Message::newInstance()
+  		->setSubject('Account Bestätigung')
+  		->setFrom(array('tim.odermatt@gmail.com' => 'Tim Odermatt'))
+  		->setTo(array($data["email"] => $data["username"]))
+  		->setBody('Hallo ' . $data["username"] . ',</br> Bitte bestätige deine Email <a href="https://'
+  				. $_SERVER['SERVER_NAME'] . "/Activate=" . $link. '">Hier</a>', 'text/html')
+  				->setContentType("text/html");
+  		
+  		//header('Refresh: 3; URL=https://localhost/login');
   		echo "Sie haben ein Bestätigungs-E-Mail erhalten.";
+  		return $message;
   	}
   	
   }
