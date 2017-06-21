@@ -25,6 +25,7 @@ else
 <div class="login">
 	<h1>Login</h1>
 	<form method="POST">
+	<?= $html->renderCSRF() ?>
 		<label>
 			<input type="text" name="email" value="<?= (isset($email)) ? $email: "" ?>" class="form-control" placeholder="Email oder Username"/>
 		</label>

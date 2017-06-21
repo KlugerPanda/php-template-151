@@ -15,9 +15,18 @@
 </head>
 </head>
 <body>
+<?php 
+if (isset($_SESSION["username"]))
+{
+	echo "<h1><center>Sie sind bereits registriert</br></br><a href='/'>Zurück zur Seite</a></center></h1>";
+}
+else 
+{
+?>
 <div class="registrieren">
 	<h1>Registrierung</h1>
 	<form method="POST">
+	<?= $html->renderCSRF() ?>
 		<label>
 			<input type="text" name="username" value="<?= (isset($username)) ? $username: "" ?>" class="form-control" placeholder="Username"/>
 		</label></br>
@@ -34,6 +43,9 @@
 	</form>
 	<a href="/login">zum Login</a>
 </div>
+<?php 
+}
+?>
 
 </body>
 </html>

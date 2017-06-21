@@ -57,6 +57,13 @@ class RegistrierenController
   		echo '<div class="alert alert-danger" role="alert">Passwörter stimmen nicht überein!"</div>';
   		return;
   	}
+  	if (!$this->passwortSicherheit($data['password']))
+  	{
+  		$this->showRegistrieren();
+  		echo '<div class="alert alert-danger" role="alert">Ihr Passwort muss mindestens eine Zahl, 
+  				ein Kleinbuchstabe sowie einen Grossbuchstabe beinhalten. Ausserdem muss es mindestens 8 Zeichen lang sein."</div>';
+  		return;
+  	}
   	if ($this->registrierenService->register($data["username"], $data["email"], password_hash($data["password"], PASSWORD_DEFAULT), 
   			$link))
   	{
@@ -64,7 +71,7 @@ class RegistrierenController
   		->setSubject('Account Bestätigung')
   		->setFrom(array('patr.hens6@gmail.com' => 'Patrick Henseler'))
   		->setTo(array($data["email"] => $data["username"]))
-  		->setBody('Hallo ' . $data["username"] . ',</br> Bitte bestätige deine Email, indem Sie auf folgenden Link gehen.</br> <a href="https://'
+  		->setBody('Hallo ' . $data["username"] . ',</br></br> Bitte bestätige deine Email, indem Sie auf folgenden Link gehen.</br><a href="https://'
   				. $_SERVER['SERVER_NAME'] . "/activate=" . $link. '">Hier</a>', 'text/html')
   				->setContentType("text/html");
   		
@@ -97,7 +104,10 @@ class RegistrierenController
   		return false;
   	}
   }
-  
+  public function passwortSicherheit($password)
+  {
+  		return preg_match("#.*^(?=.{8,20})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$#", $password);
+  }
   public function passwortCheck($password, $passwordRepeat)
   {
   	if ($password == $passwordRepeat)
@@ -118,7 +128,7 @@ class RegistrierenController
   			'%', '1', '2', '3', '4', '5', '6', '7,' ,'8', '9');
   	do 
   	{
-  		for ($i = 0; $i < 15; $i++)
+  		for ($i = 0; $i < 25; $i++)
   		{
   			$randomNumber =  rand(0, count($zeichen));
   			$link = $link . $zeichen[$randomNumber];

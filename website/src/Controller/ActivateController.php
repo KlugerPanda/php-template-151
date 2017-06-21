@@ -27,7 +27,7 @@ class ActivateController
 		//echo $link;
 		if ($this->activateService->activate($link))
 		{
-			echo "Ihr Account wurde erfolgreich bestätigt.";
+			echo "Ihr Account wurde erfolgreich bestätigt.</br><a href='/login'>Zum Login</a>";
 		}
 		else 
 		{
