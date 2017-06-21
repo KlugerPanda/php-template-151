@@ -39,10 +39,8 @@ switch($_SERVER["REQUEST_URI"]) {
 		else 
 		{
 			$message = $registrierenController->register($_POST);
-			//$factory->getMailer()->send($message);
+			$factory->getMailer()->send($message);
 		}
-		break;
-	case "/activate":
 		break;
 	default:
 		$matches = [];

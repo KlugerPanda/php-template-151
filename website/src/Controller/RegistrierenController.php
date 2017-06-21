@@ -62,10 +62,10 @@ class RegistrierenController
   	{
   		$message =  \Swift_Message::newInstance()
   		->setSubject('Account Bestätigung')
-  		->setFrom(array('tim.odermatt@gmail.com' => 'Tim Odermatt'))
+  		->setFrom(array('patr.hens6@gmail.com' => 'Patrick Henseler'))
   		->setTo(array($data["email"] => $data["username"]))
-  		->setBody('Hallo ' . $data["username"] . ',</br> Bitte bestätige deine Email <a href="https://'
-  				. $_SERVER['SERVER_NAME'] . "/Activate=" . $link. '">Hier</a>', 'text/html')
+  		->setBody('Hallo ' . $data["username"] . ',</br> Bitte bestätige deine Email, indem Sie auf folgenden Link gehen.</br> <a href="https://'
+  				. $_SERVER['SERVER_NAME'] . "/activate=" . $link. '">Hier</a>', 'text/html')
   				->setContentType("text/html");
   		
   		echo '<div class="alert alert-success" role="alert">Erfolgreich registriert. Sie haben ein Bestätigungs-E-Mail erhalten.</div>';
