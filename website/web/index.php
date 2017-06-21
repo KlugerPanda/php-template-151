@@ -42,6 +42,18 @@ switch($_SERVER["REQUEST_URI"]) {
 			$factory->getMailer()->send($message);
 		}
 		break;
+	case "/newPassword":
+		$newpasswordController = $factory->getNewpasswordController();
+		if($_SERVER["REQUEST_METHOD"] === "GET")
+		{
+			$newpasswordController->showPasswordAnfordern();
+		}
+		else
+		{
+			$message = $newpasswordController->passwordAnfordern($_POST);
+			$factory->getMailer()->send($message);
+		}
+		break;
 	default:
 		$matches = [];
 		if(preg_match("|^/activate=(.+)$|", $_SERVER["REQUEST_URI"], $matches)) 

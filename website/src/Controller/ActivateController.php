@@ -31,7 +31,7 @@ class ActivateController
 		}
 		else 
 		{
-			echo "Falscher Link";
+			echo "Ungültiger Link";
 		}
 	}
 

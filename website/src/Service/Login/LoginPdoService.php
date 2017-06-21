@@ -17,8 +17,8 @@ class LoginPdoService implements LoginService
     public function authenticate($username, $password) 
     {
         $stmt = $this->pdo->prepare("SELECT * FROM user WHERE (username=? OR email=?)");
-        $stmt->bindValue(1, $username);
-        $stmt->bindValue(2, $username);
+        $stmt->bindValue(1, htmlentities($username));
+        $stmt->bindValue(2, htmlentities($username));
         $stmt->execute();
         $tester = 0;
 		foreach ($stmt as $row)

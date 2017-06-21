@@ -24,14 +24,13 @@ class ActivatePdoService implements ActivateService
 		$tester = false;
 		foreach ($stmt as $row)
 		{
-			if(strtolower($link) == strtolower($row['link']))
+			if($link == $row['link'])
 			{
 				$tester = true;
 			}
 		}
 		if ($tester)
 		{
-			// $username vorgegebener Username
 			$stmt = $this->pdo->prepare("UPDATE user SET status=1 WHERE link=? ");
 			$stmt->bindValue(1, $link);
 			$stmt->execute();

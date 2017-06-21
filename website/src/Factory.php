@@ -84,6 +84,19 @@ class Factory
 		return new Service\Activate\ActivatePdoService($this->getPdo());
 	}
 	
+	// Neues Password anfordern
+	public function getNewpasswordController()
+	{
+		return new Controller\NewpasswordController(
+				$this->getTemplateEngine(),
+				$this->getNewpasswordService()
+				);
+	}
+	public function getNewpasswordService()
+	{
+		return new Service\Newpassword\NewpasswordPdoService($this->getPdo());
+	}
+	
 	// Mailer
 	public function getMailer()
 	{

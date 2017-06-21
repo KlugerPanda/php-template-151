@@ -18,10 +18,10 @@ class RegistrierenPdoService implements RegistrierenService
     {
         $stmt = $this->pdo->prepare("INSERT INTO user (username, email, passwort, link, status)
     	VALUES(?, ?, ?, ?, ?)");
-    	$stmt->bindValue(1, $username);
-        $stmt->bindValue(2, $email);
-        $stmt->bindValue(3, $password);
-        $stmt->bindValue(4, $link);
+    	$stmt->bindValue(1, htmlentities($username));
+        $stmt->bindValue(2, htmlentities($email));
+        $stmt->bindValue(3, htmlentities($password));
+        $stmt->bindValue(4, htmlentities($link));
         $stmt->bindValue(5, 2);
         $stmt->execute();
 		
@@ -77,7 +77,7 @@ class RegistrierenPdoService implements RegistrierenService
     	$tester = true;
     	foreach ($stmt as $row)
     	{
-    		if(strtolower($link) == strtolower($row['link']))
+    		if($link == $row['link'])
     		{
     			$tester = false;
     		}
