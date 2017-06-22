@@ -38,12 +38,27 @@ else
 		<label>
 			<input type="password" name="passwordRepeat" class="form-control" placeholder="Passwort wiederholen"/>
 		</label></br>
+		<input type="hidden" name="CSRF" value="<?php echo getCSRF();?>">
 		<input type="submit" name="registrieren" value="Registrieren" class="btn btn-default"/>
 	</form>
 	<a href="/login">zum Login</a></br>
 	<a href="/">zurück zur Startseite</a>
 </div>
 <?php 
+}
+function getCSRF()
+{
+	$link = "";
+	$zeichen = array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+			'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z', '!', '$', '?',
+			'1', '2', '3', '4', '5', '6', '7,' ,'8', '9');
+	for ($i = 0; $i < 25; $i++)
+	{
+		$randomNumber =  rand(0, count($zeichen));
+		$link = $link . $zeichen[$randomNumber];
+	}
+	$_SESSION['CSRF'] = $link;
+	return $link;
 }
 ?>
 

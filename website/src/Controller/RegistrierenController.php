@@ -38,6 +38,11 @@ class RegistrierenController
   		$this->showRegistrieren();
   		return;
   	}
+  	if ($data['CSRF'] != $_SESSION['CSRF'])
+  	{
+  		$this->showRegistrieren();
+  		return;
+  	}
   	$link = $this->getLink();
   	if (!$this->usernameCheck($data['username']))
   	{

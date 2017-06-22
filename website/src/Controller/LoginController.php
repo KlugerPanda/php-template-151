@@ -38,6 +38,11 @@ class LoginController
   		$this->showLogin();
   		return;
   	}
+  	if ($data['CSRF'] != $_SESSION['CSRF'])
+  	{
+  		$this->showLogin();
+  		return;
+  	}
   	
   	if($this->loginService->authenticate($data["email"], $data["password"])) 
   	{

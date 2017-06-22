@@ -33,13 +33,18 @@ class NewpasswordController
 					$this->showPasswordAnfordern();
 					return;
 		}
+		if ($data['CSRF'] != $_SESSION['CSRF'])
+		{
+			$this->showPasswordAnfordern();
+			return;
+		}
 		$username = $this->newpasswordService->getUsername($data['email']);
 		$email = $this->newpasswordService->getEmail($data['email']);
 		$link = $this->newpasswordService->getLink($data['email']);
 		if ($this->newpasswordService->neuesPassword($data['email']))
 		{
 			$message =  \Swift_Message::newInstance()
-			->setSubject('Account Bestätigung')
+			->setSubject('Passwort vergessen')
 			->setFrom(array('patr.hens6@gmail.com' => 'Patrick Henseler'))
 			->setTo(array($email=> $username))
 			->setBody('Hallo ' . $username . ',</br></br> Sie können ihr Passwort neu setzten, indem Sie auf folgenden Link gehen.</br><a href="https://'
@@ -77,6 +82,11 @@ class NewpasswordController
 	public function changePassword(array $data, $link)
 	{
 		if(!array_key_exists("password", $data) OR !array_key_exists("password2", $data))
+		{
+			$this->loadnewpasswordForm();
+			return;
+		}
+		if ($data['CSRF'] != $_SESSION['CSRF'])
 		{
 			$this->loadnewpasswordForm();
 			return;

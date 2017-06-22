@@ -38,7 +38,10 @@ switch($_SERVER["REQUEST_URI"]) {
 		else 
 		{
 			$message = $registrierenController->register($_POST);
-			$factory->getMailer()->send($message);
+			if ($message != null)
+			{
+				$factory->getMailer()->send($message);
+			}
 		}
 		break;
 	case "/newPassword":
@@ -50,7 +53,10 @@ switch($_SERVER["REQUEST_URI"]) {
 		else
 		{
 			$message = $newpasswordController->newPasswordAnfordern($_POST);
-			$factory->getMailer()->send($message);
+			if ($message != null)
+			{
+				$factory->getMailer()->send($message);
+			}
 		}
 		break;
 	default:
