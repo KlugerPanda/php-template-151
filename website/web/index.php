@@ -25,10 +25,9 @@ switch($_SERVER["REQUEST_URI"]) {
 		}
 		break;
 	case "/ausloggen":
-		//header('location: https://localhost/login', 0);
-		// Löschen aller Session-Variablen.
 		$_SESSION = array();
 		session_destroy();
+		header('location: /', 0);
 		break;
 	case "/registrieren":
 		$registrierenController = $factory->getRegistrierenController();
@@ -50,7 +49,7 @@ switch($_SERVER["REQUEST_URI"]) {
 		}
 		else
 		{
-			$message = $newpasswordController->passwordAnfordern($_POST);
+			$message = $newpasswordController->newPasswordAnfordern($_POST);
 			$factory->getMailer()->send($message);
 		}
 		break;
@@ -61,6 +60,19 @@ switch($_SERVER["REQUEST_URI"]) {
 			$activateController = $factory->getActivateController();
 			$activateController->activate($matches[1]);
 			break;
+		}
+		else if (preg_match("|^/setNewPassword=(.+)$|", $_SERVER["REQUEST_URI"], $matches))
+		{
+			if($_SERVER["REQUEST_METHOD"] === "GET")
+			{
+				$newpasswordController = $factory->getNewpasswordController();
+				$newpasswordController->show($matches[1]);
+			}
+			else
+			{
+				$message = $newpasswordController->newPasswordAnfordern($_POST);
+				$factory->getMailer()->send($message);
+			}
 		}
 		else 
 		{

@@ -28,9 +28,9 @@ class LoginPdoService implements LoginService
 			{
 				if ($row["status"] == 1)
 				{
+					session_regenerate_id();
 					$_SESSION["username"] = $row['username'];
 					$_SESSION["email"] = $row['email'];
-					header('location: localhost', 0);
 					return true;
 				}
 				else 

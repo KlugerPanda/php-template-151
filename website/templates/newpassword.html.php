@@ -26,7 +26,6 @@ else
 	<h1>Neues Passwort anfordern</h1>
 	Bitte geben Sie E-Mail oder Username an.
 	<form method="POST">
-	<?= $html->renderCSRF() ?>
 		<label>
 			<input type="text" name="email" value="<?= (isset($email)) ? $email: "" ?>" class="form-control" placeholder="Email oder Username"/>
 		</label>

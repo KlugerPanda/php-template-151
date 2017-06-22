@@ -41,7 +41,7 @@ class LoginController
   	
   	if($this->loginService->authenticate($data["email"], $data["password"])) 
   	{
-  		
+  		// header('location: /', 0);  Funktioniert nicht
   	} 
   	else 
   	{

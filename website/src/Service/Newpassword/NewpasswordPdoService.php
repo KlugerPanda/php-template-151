@@ -14,6 +14,7 @@ class NewpasswordPdoService implements NewpasswordService
 		$this->pdo = $pdo;
 	}
 	
+	// Link anfordern
 	public function neuesPassword($email)
 	{
 		$stmt = $this->pdo->prepare("SELECT * FROM user WHERE (username=? OR email=?)");
@@ -60,7 +61,7 @@ class NewpasswordPdoService implements NewpasswordService
 		$emailReturn = "";
 		foreach ($stmt as $row)
 		{
-			$emailReturn = $row['username'];
+			$emailReturn = $row['email'];
 		}
 		return $emailReturn;
 	}
@@ -102,6 +103,44 @@ class NewpasswordPdoService implements NewpasswordService
 		}
 		return $tester;
 	}
-
+	
+	// Link prüfen
+	public function richtigerLink($link)
+	{
+		$stmt = $this->pdo->prepare("SELECT * FROM user WHERE link=?");
+		$stmt->bindValue(1, $link);
+		$stmt->execute();
+		return $stmt->rowCount();
+	}
+	
+	// Passwort ändern
+	public function passwordAendern($password, $password2)
+	{
+		if ($this->passwortSicherheit($password) && $this->passwortCheck($password, $password2))
+		{
+			// passwort ändern
+		}
+		else 
+		{
+			echo "Passwort stimmen nicht überein";
+			return;
+		}
+	}
+	
+	public function passwortSicherheit($password)
+	{
+		return preg_match("#.*^(?=.{8,20})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$#", $password);
+	}
+	public function passwortCheck($password, $passwordRepeat)
+	{
+		if ($password == $passwordRepeat)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 
 }

@@ -1,7 +1,7 @@
 <!Doctype>
 <html>
 <head>
-	<title>Login</title>
+	<title>Neues Passwort erstellen</title>
 	<link rel="stylesheet" href="stylesheets/stylesheet.css">
 	<!-- Import Ajax From Google Servers -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -23,21 +23,18 @@ else
 {
 ?>
 <div class="login">
-	<h1>Login</h1>
-	<form method="POST">
+	<h1>Neues Passwort erstellen</h1>
+	Bitte geben Sie ihr neues Passwort ein.
+	<form action="/newPassword" method="POST">
 		<label>
-			<input type="text" name="email" value="<?= (isset($email)) ? $email: "" ?>" class="form-control" placeholder="Email oder Username"/>
+			<input type="text" name="password2" class="form-control" placeholder="Passwort"/>
+		</label>
+		<label>
+			<input type="text" name="password2" class="form-control" placeholder="Passwort"/>
 		</label>
 		</br>
-		<label>
-			<input type="password" name="password" class="form-control" placeholder="Passwort"/>
-		</label>
-		</br>
-		<input type="submit" name="login" value="Login" class="btn btn-default"/>
+		<input type="submit" name="createPassword" value="Passwort ändern" class="btn btn-default"/>
 	</form>
-	<a href="/newPassword"><button class="btn btn-default">Passwort vergessen</button></a></br>
-	<a href="/registrieren">zum Registrieren</a></br>
-	<a href="/">zurück zur Startseite</a>
 </div>
 <?php 
 }

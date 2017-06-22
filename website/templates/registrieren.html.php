@@ -26,7 +26,6 @@ else
 <div class="registrieren">
 	<h1>Registrierung</h1>
 	<form method="POST">
-	<?= $html->renderCSRF() ?>
 		<label>
 			<input type="text" name="username" value="<?= (isset($username)) ? $username: "" ?>" class="form-control" placeholder="Username"/>
 		</label></br>
@@ -41,7 +40,8 @@ else
 		</label></br>
 		<input type="submit" name="registrieren" value="Registrieren" class="btn btn-default"/>
 	</form>
-	<a href="/login">zum Login</a>
+	<a href="/login">zum Login</a></br>
+	<a href="/">zurück zur Startseite</a>
 </div>
 <?php 
 }
