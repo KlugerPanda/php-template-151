@@ -74,16 +74,20 @@ class NewpasswordController
 	}
 	
 	// passwort ändern
-	public function changePassword(array $data)
+	public function changePassword(array $data, $link)
 	{
 		if(!array_key_exists("password", $data) OR !array_key_exists("password2", $data))
 		{
 			$this->loadnewpasswordForm();
 			return;
 		}
-		if ($this->newpasswordService->passwordAendern($data['password'], $data['password2']))
+		if ($this->newpasswordService->passwordAendern($data['password'], $data['password2'], $link))
 		{
-			
+			echo "Passwort wurde erfolgreich geändert.</br><a href='/login'>Zum Login</a>";
+		}
+		else 
+		{
+			echo "Passwort stimmen nicht überein oder das Passwort ist nicht sicher genug.";
 		}
 	}
 

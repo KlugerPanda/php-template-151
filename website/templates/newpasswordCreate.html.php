@@ -25,12 +25,12 @@ else
 <div class="login">
 	<h1>Neues Passwort erstellen</h1>
 	Bitte geben Sie ihr neues Passwort ein.
-	<form action="/newPassword" method="POST">
+	<form method="POST">
 		<label>
-			<input type="text" name="password2" class="form-control" placeholder="Passwort"/>
+			<input type="password" name="password" class="form-control" placeholder="Passwort"/>
 		</label>
 		<label>
-			<input type="text" name="password2" class="form-control" placeholder="Passwort"/>
+			<input type="password" name="password2" class="form-control" placeholder="Passwort"/>
 		</label>
 		</br>
 		<input type="submit" name="createPassword" value="Passwort ändern" class="btn btn-default"/>

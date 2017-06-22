@@ -66,12 +66,13 @@ switch($_SERVER["REQUEST_URI"]) {
 			if($_SERVER["REQUEST_METHOD"] === "GET")
 			{
 				$newpasswordController = $factory->getNewpasswordController();
-				$newpasswordController->show($matches[1]);
+				$newpasswordController->showNewpasswordForm($matches[1]);
 			}
 			else
 			{
-				$message = $newpasswordController->newPasswordAnfordern($_POST);
-				$factory->getMailer()->send($message);
+				// Passwort ändern
+				$newpasswordController = $factory->getNewpasswordController();
+				$newpasswordController->changePassword($_POST, $matches[1]);
 			}
 		}
 		else 

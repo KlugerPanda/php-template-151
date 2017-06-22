@@ -70,8 +70,8 @@ class NewpasswordPdoService implements NewpasswordService
 	{
 		$link = "";
 		$zeichen = array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
-				'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z', '!', '$', '?',
-				'%', '1', '2', '3', '4', '5', '6', '7,' ,'8', '9');
+				'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z', '!', '$', '?', 
+				'1', '2', '3', '4', '5', '6', '7,' ,'8', '9');
 		do
 		{
 			for ($i = 0; $i < 25; $i++)
@@ -114,16 +114,20 @@ class NewpasswordPdoService implements NewpasswordService
 	}
 	
 	// Passwort ändern
-	public function passwordAendern($password, $password2)
+	public function passwordAendern($password, $password2, $link)
 	{
 		if ($this->passwortSicherheit($password) && $this->passwortCheck($password, $password2))
 		{
 			// passwort ändern
+			$stmt = $this->pdo->prepare("UPDATE user SET passwort=? WHERE link=?");
+			$stmt->bindValue(1, password_hash($password, PASSWORD_DEFAULT));
+			$stmt->bindValue(2, $link);
+			$stmt->execute();
+			return true;
 		}
 		else 
 		{
-			echo "Passwort stimmen nicht überein";
-			return;
+			return false;
 		}
 	}
 	

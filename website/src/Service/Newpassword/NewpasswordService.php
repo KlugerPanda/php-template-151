@@ -11,5 +11,5 @@ interface NewpasswordService
    
    public function richtigerLink($link);
    
-   public function passwordAendern();
+   public function passwordAendern($password, $password2, $link);
 }
